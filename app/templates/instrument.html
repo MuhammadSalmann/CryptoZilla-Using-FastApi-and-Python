@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Instruments</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">CryptoZella</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutdeveloper.html">About Developers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Sign Out</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          <span class="navbar-text">Welcome, {{ user }}</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h1>Hello, {{ user }}</h1>
+    <p>You have selected an {{ account_type }} account with a size of {{ account_size }}.</p>
+    <p>Please provide details about your current investments.</p>
+
+    <form action="/calculate-profit-loss" method="post">
+      <div class="form-group">
+        <label for="instrument">Select Instrument</label>
+        <select class="form-control" id="instrument" name="instrument" required>
+          <option value="bitcoin">Bitcoin</option>
+          <option value="ethereum">Ethereum</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+      <div class="form-group mt-3">
+        <label for="amount">Amount</label>
+        <input type="number" step="0.01" class="form-control" id="amount" name="amount" required>
+      </div>
+      <div class="form-group mt-3">
+        <label for="buying_price">Buying Price</label>
+        <input type="number" step="0.01" class="form-control" id="buying_price" name="buying_price" required>
+      </div>
+      <div class="form-group mt-3">
+        <label for="current_price">Current Price</label>
+        <input type="number" step="0.01" class="form-control" id="current_price" name="current_price" required>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

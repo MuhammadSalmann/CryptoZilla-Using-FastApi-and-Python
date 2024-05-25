@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI CRUD</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <a class="btn btn-primary" href="/">Back to Home</a>
+        <h1 class="text-center">Users List</h1>
+        <form class="mb-4" method="post" action="/users/">
+            <div class="form-group">
+                <input type="text" class="form-control" name="wallet_id" placeholder="Wallet ID" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Wallet ID</th>
+                    <th>Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user['_id'] }}</td>
+                    <td>{{ user['wallet_id'] }}</td>
+                    <td>{{ user['password'] }}</td>
+                    <td>
+                        <form action="/users/{{ user['_id'] }}/update" style="display:inline;">
+                            <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                        </form>
+                        <form id="del-form-{{ user['_id'] }}" action="/users/{{ user['_id'] }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <script>
+                    document.getElementById('del-form-{{ user["_id"] }}').addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        fetch(this.action, {
+                            method: 'DELETE'
+                        }).then(function (response) {
+                            if (response.ok) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+                </script>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
